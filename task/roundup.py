@@ -8,6 +8,7 @@ from config import emolist
 #
 printpage=cf.htmldict['roundup']
 tablename=cf.table
+subjtablename=cf.subjtable
 ##
 myform=cgi.FieldStorage()
 cgitb.enable()
@@ -17,10 +18,12 @@ cursor = MySQLdb.connect(host=cf.host,user=cf.user,passwd=cf.passwd,db=cf.db).cu
 
 theids=myform.keys() 
 subjid = myform['subjid'].value
-questionID=ndf.defineQ(subjid)
-qnum=int(questionID)
+#questionID=ndf.defineQ(subjid)
+#qnum=int(questionID)
+qnum=int(myform['qnum'].value)
 qindex=myform['qindex'].value
 possqs = myform['possqs'].value
+
 try:
     possqs = ndf.string2intlist(possqs)
 except:
@@ -28,6 +31,7 @@ except:
 dnums=list(eval(myform['dnums'].value))
 thisround=int(myform['thisround'].value) 
 formindex=ndf.savelastentry(cursor, tablename, myform, emolist)
+ndf.updatelog(cursor, subjtablename, subjid, qnum)
 possrounds=len(questions)
 if thisround==1:
     thisroundunit='round'

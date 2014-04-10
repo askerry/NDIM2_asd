@@ -36,6 +36,37 @@ def enteruser(cursor,subjid,tablename):
     thisvar=str(formindex)
     thisvar=thisvar[1:-3]
     return thisvar
+
+def updatelog(cursor, tablename, subjid, question):
+    try:
+        sql='SELECT * FROM %s where subjid = "%s"' %(tablename,subjid) #returns 1 if subject is found, 0 otherwise
+        subject=cursor.execute(sql)
+        if subject==1:
+            completedqs=fetchcompletes(cursor, tablename, subjid)
+            completedqs.append(question)
+            newqs=[str(x) for x in completedqs]
+            newqs=','.join(newqs)
+        elif subject ==0:
+           sql='insert into %s (subjid) values ("%s")'%(tablename, str(subjid))
+           cursor.execute(sql)
+           newqs=str(question) 
+    except:
+        pass
+    sql='update '+tablename+' set completedqs ="'+newqs+'" where subjid="'+subjid+'"'
+    cursor.execute(sql)
+    
+def fetchcompletes(cursor, tablename, subjid):
+    try:
+        sql='SELECT completedqs AS completedqs FROM %s where subjid = "%s"' %(tablename,subjid)
+        cursor.execute(sql)
+        completedqsstring = cursor.fetchall() 
+        completedqsstring=completedqsstring[0][0]
+        completedqs=completedqsstring.split(',')
+        completedqs=[int(x) for x in completedqs]
+    except:
+        completedqs=[]
+    return completedqs
+        
     
 def savedata(cursor, tablename, column, value, row):
     sql='update '+tablename+' set ' +column +' ="'+value+'" where rownum="'+row+'"'
@@ -129,13 +160,16 @@ def make_scaleseries(emolist):
     return printblock
 def make_scale(mintag,midtag,maxtag, html):
     printblock=gethtml(html)
+    mintag=mintag.replace("!!!", "'")
+    midtag=midtag.replace("!!!", "'")
+    maxtag=maxtag.replace("!!!", "'")
     printblock=printblock.replace('mintag_var',mintag)
     printblock=printblock.replace('midtag_var',midtag)
     printblock=printblock.replace('maxtag_var',maxtag)
     return printblock
     
 def defineQ(subjid):
-    questionID=subjid[subjid.index('q')+1:subjid.index('q')+3]
+    questionID=subjid[subjid.index('q')+1:subjid.index('q')+4]
     return questionID
 
 def string2intlist(string):

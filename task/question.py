@@ -10,6 +10,7 @@ from config import names,emolist,subjects
 #
 printpage=cf.htmldict['question']
 tablename=cf.table
+subjtablename=cf.subjtable
 dimfile=cf.datadict['appraisals']
 errorpage=cf.htmldict['errorpage']
 #
@@ -41,21 +42,28 @@ if match==0: #if not a match, print the error page
     print newhtml
 else: #if a match, print the good stuff
     possqs = myform['possqs'].value
+    completedqs=ndf.fetchcompletes(cursor, subjtablename, subjid)
+    numcompleted=len(completedqs)
     try:
         possqs = ndf.string2intlist(possqs)
         shuffle(possqs)
     except:#will fail when number of rounds is maxe
         pass
-    thisround=int(myform['thisround'].value)
+    possqs=[q for q in possqs if q not in completedqs]
+    thisround=numcompleted+1
     if thisround==1: #for first round, question dictated by ID
         questionID=ndf.defineQ(subjid)
         qnum=int(questionID)
     else: #after that, pull from remaining list
-        qnum=int(myform['qnum'].value)
+        try:
+            qnum=int(myform['qnum'].value)
+        except:
+            qnum=int(possqs[0])
     try:
         myqnums=possqs.remove(qnum)
     except:
         pass
+    thisround=numcompleted+1
     dnums=list(eval(myform['dnums'].value))
     totalqpersubj=len(dnums)
     qindex=myform['qindex'].value
@@ -74,7 +82,6 @@ else: #if a match, print the good stuff
     elif qindex>totalqpersubj:
         nextthing='question.py'
         qindex=1
-        thisround=thisround+1
         qnum=int(possqs[0])
         formindex=ndf.enteruser(cursor,subjid,tablename)
         shuffle(dnums)

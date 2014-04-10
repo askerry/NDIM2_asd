@@ -24,6 +24,8 @@ for dim in dimdata:
     dnums.append(dim[qnumindex])
 shuffle(dnums)
 dnumlist=reduce(lambda x,y:x+','+y, dnums)
+totaldimpersubj=str(len(dnums))
+totalitempersubj=str(len(possqs))
 
 #print the page
 newhtml=ndf.gethtml(printpage)
@@ -33,6 +35,9 @@ newhtml=newhtml.replace('nextthing_var','question.py')
 newhtml=newhtml.replace('possqs_var',str(possqs))
 head=ndf.gethtml(cf.htmldict['head'])
 newhtml=newhtml.replace('head_var', head)
+newhtml=newhtml.replace('totaldimnum_var', totaldimpersubj)
+newhtml=newhtml.replace('totalitemnum_var', totalitempersubj)
+
 
 print newhtml 
 

@@ -5,7 +5,8 @@ import csv
 htmldict={'head':'html/head.html','login':'html/login.html', 'question':'html/question.html', 'roundup':'html/roundup.html', 'summary':'html/summary.html', 'demographics':'html/demographics.html', 'keycode':'html/keycode.html', 'errorpage':'html/iderror.html', 'slider':'html/slider.html'}
 datadict={'config':'appdata/config_data.csv', 'stimfile':'appdata/NDE_stims.csv', 'subjectfile':'appdata/slist.csv', 'appraisals':'appdata/appraisals.csv'}
 #mysql info
-table='NDE_dims2'
+table='NDE_dims2_asdresponses'
+subjtable='NDE_dimasd_subjlog'
 host="localhost"
 user="askerry"
 passwd="password"
