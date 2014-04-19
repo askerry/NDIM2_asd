@@ -1,4 +1,4 @@
-NDIM@2_asd
+NDIM2_asd
 ========
 
 code for collecting behavioral data from ASD group (and controls on MTURK). very barebones app to host on mindhive.mit.edu. writes data to mysql db.
