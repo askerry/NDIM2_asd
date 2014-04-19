@@ -29,9 +29,14 @@ totalitempersubj=str(len(possqs))
 
 #print the page
 newhtml=ndf.gethtml(printpage)
-newhtml=newhtml.replace('qindex_var',str(qindex)).replace('dnumlist_var',str(dnumlist)).replace('nextthing_var','question.py').replace('possqs_var',str(possqs))
+newhtml=newhtml.replace('qindex_var',str(qindex))
+newhtml=newhtml.replace('dnumlist_var',str(dnumlist))
+newhtml=newhtml.replace('nextthing_var','question.py')
+newhtml=newhtml.replace('possqs_var',str(possqs))
 head=ndf.gethtml(cf.htmldict['head'])
-newhtml=newhtml.replace('head_var', head).replace('totaldimnum_var', totaldimpersubj).replace('totalitemnum_var', totalitempersubj)
+newhtml=newhtml.replace('head_var', head)
+newhtml=newhtml.replace('totaldimnum_var', totaldimpersubj)
+newhtml=newhtml.replace('totalitemnum_var', totalitempersubj)
 
 
 print newhtml 

@@ -19,7 +19,10 @@ thisround=int(myform['thisround'].value)
 
 #print the page
 newhtml=ndf.gethtml(printpage)
-newhtml=newhtml.replace('subjid_var',str(subjid)).replace('formindex_var',str(formindex)).replace('nextthing_var','keycode.py').replace('thisround_var',str(thisround))
+newhtml=newhtml.replace('subjid_var',str(subjid))
+newhtml=newhtml.replace('formindex_var',str(formindex))
+newhtml=newhtml.replace('nextthing_var','keycode.py')
+newhtml=newhtml.replace('thisround_var',str(thisround))
 head=ndf.gethtml(cf.htmldict['head'])
 newhtml=newhtml.replace('head_var', head)
 

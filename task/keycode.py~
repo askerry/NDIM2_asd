@@ -28,7 +28,10 @@ ndf.savedemodata(cursor, tablename, myform)
 
 #print the page
 newhtml=ndf.gethtml(printpage)
-newhtml=newhtml.replace('keycode_var', keycode).replace('totalrounds_var', str(thisround)).replace('totalpayment_var', str(totalpayment)).replace('thisroundunit_var',thisroundunit)
+newhtml=newhtml.replace('keycode_var', keycode) 
+newhtml=newhtml.replace('totalrounds_var', str(thisround))
+newhtml=newhtml.replace('totalpayment_var', str(totalpayment))
+newhtml=newhtml.replace('thisroundunit_var',thisroundunit)
 head=ndf.gethtml(cf.htmldict['head'])
 newhtml=newhtml.replace('head_var', head)
 

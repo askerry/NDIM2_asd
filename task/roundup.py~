@@ -27,7 +27,7 @@ possqs = myform['possqs'].value
 try:
     possqs = ndf.string2intlist(possqs)
 except:
-    pass #will fail when number of rounds is max
+    pass #will fail when number of rounds is maxe
 dnums=list(eval(myform['dnums'].value))
 thisround=int(myform['thisround'].value) 
 formindex=ndf.savelastentry(cursor, tablename, myform, emolist)
